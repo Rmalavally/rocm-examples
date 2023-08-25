@@ -34,13 +34,12 @@ main(int argc, char **argv)
 }
 ```
 
-This application will attempt to access invalid addresses for certain command line arguments.
-In particular, if `m < n1 * n2` some device threads will attempt to access
+This application will attempt to access invalid addresses for certain command line arguments. In particular, if `m < n1 * n2` some device threads will attempt to access
 unallocated device memory.
-Or, if `c < m`, the `hipMemcpy` function will copy past the end of
-the `malloc` allocated memory.
 
-The `hipcc` compiler is used here for simplicity. Compiling without XNACK results in a warning.
+Or, if `c < m`, the `hipMemcpy` function will copy past the end of the `malloc` allocated memory.
+
+**Note**: The `hipcc` compiler is used here for simplicity. Compiling without XNACK results in a warning.
 
 > `$ hipcc -g --offload-arch=gfx90a:xnack- -fsanitize=address
 -shared-libsan mini.hip -o mini`
@@ -78,9 +77,9 @@ $ ldd mini
         libdrm_amdgpu.so.1 => /opt/amdgpu/lib/x86_64-linux-gnu/libdrm_amdgpu.so.1 (0x00007fb9b3a62000)
 ```
 
-This confirms that the address sanitizer runtime is linked in, and the ASAN instrumented
-version of the runtime libraries will be used.
-And checking the `PATH` yields
+This confirms that the address sanitizer runtime is linked in, and the ASAN instrumented version of the runtime libraries are used.
+
+Checking the `PATH` yields
 
 ```
 $ which llvm-symbolizer
@@ -134,8 +133,7 @@ Shadow byte legend (one shadow byte represents 8 application bytes):
 ==3141==ABORTING
 ```
 
-Running with `m = 100`, `n1 = 10`, `n2 = 10` and `c = 99` should produce
-a report for an invalid copy.
+Running with `m = 100`, `n1 = 10`, `n2 = 10` and `c = 99` should produce a report for an invalid copy.
 
 ```
 =================================================================
