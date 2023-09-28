@@ -102,7 +102,7 @@ a report for an invalid access by the last 10 threads.
 =================================================================
 ==3141==ERROR: AddressSanitizer: heap-buffer-overflow on amdgpu device 0 at pc 0x7fb1410d2cc4
 WRITE of size 4 in workgroup id (10,0,0)
-  #0 0x7fb1410d2cc4 in set1(int*) at /home/dave/mini/mini.cpp:0:10
+  #0 0x7fb1410d2cc4 in set1(int*) at /home/user/mini/mini.cpp:0:10
 
 Thread ids and accessed addresses:
 00 : 0x7fb14371d190 01 : 0x7fb14371d194 02 : 0x7fb14371d198 03 : 0x7fb14371d19c 04 : 0x7fb14371d1a0 05 : 0x7fb14371d1a4 06 : 0x7fb14371d1a8 07 : 0x7fb14371d1ac
@@ -110,12 +110,12 @@ Thread ids and accessed addresses:
 
 0x7fb14371d190 is located 0 bytes after 400-byte region [0x7fb14371d000,0x7fb14371d190)
 allocated by thread T0 here:
-    #0 0x7fb151c76828 in hsa_amd_memory_pool_allocate /work/dave/git/compute/external/llvm-project/compiler-rt/lib/asan/asan_interceptors.cpp:692:3
+    #0 0x7fb151c76828 in hsa_amd_memory_pool_allocate /work/user/git/compute/external/llvm-project/compiler-rt/lib/asan/asan_interceptors.cpp:692:3
     #1 ...
 	
-    #12 0x7fb14fb99ec4 in hipMalloc /work/dave/git/compute/external/clr/hipamd/src/hip_memory.cpp:568:3
+    #12 0x7fb14fb99ec4 in hipMalloc /work/user/git/compute/external/clr/hipamd/src/hip_memory.cpp:568:3
     #13 0x226630 in hipError_t hipMalloc<int>(int**, unsigned long) /opt/rocm-5.7.0-99999/include/hip/hip_runtime_api.h:8367:12
-    #14 0x226630 in main /home/dave/mini/mini.cpp:19:5
+    #14 0x226630 in main /home/user/mini/mini.cpp:19:5
     #15 0x7fb14ef02082 in __libc_start_main /build/glibc-SzIz7B/glibc-2.31/csu/../csu/libc-start.c:308:16
 
 Shadow bytes around the buggy address:
@@ -138,22 +138,22 @@ Running with `m = 100`, `n1 = 10`, `n2 = 10` and `c = 99` should produce a repor
 =================================================================
 ==2817==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x514000150dcc at pc 0x7f5509551aca bp 0x7ffc90a7ae50 sp 0x7ffc90a7a610
 WRITE of size 400 at 0x514000150dcc thread T0
-    #0 0x7f5509551ac9 in __asan_memcpy /work/dave/git/compute/external/llvm-project/compiler-rt/lib/asan/asan_interceptors_memintrinsics.cpp:61:3
+    #0 0x7f5509551ac9 in __asan_memcpy /work/user/git/compute/external/llvm-project/compiler-rt/lib/asan/asan_interceptors_memintrinsics.cpp:61:3
     #1 ...
 
-    #9 0x7f5507462a28 in hipMemcpy_common(void*, void const*, unsigned long, hipMemcpyKind, ihipStream_t*) /work/dave/git/compute/external/clr/hipamd/src/hip_memory.cpp:637:10
-    #10 0x7f5507464205 in hipMemcpy /work/dave/git/compute/external/clr/hipamd/src/hip_memory.cpp:642:3
-    #11 0x226844 in main /home/dave/mini/mini.cpp:22:5
+    #9 0x7f5507462a28 in hipMemcpy_common(void*, void const*, unsigned long, hipMemcpyKind, ihipStream_t*) /work/user/git/compute/external/clr/hipamd/src/hip_memory.cpp:637:10
+    #10 0x7f5507464205 in hipMemcpy /work/user/git/compute/external/clr/hipamd/src/hip_memory.cpp:642:3
+    #11 0x226844 in main /home/user/mini/mini.cpp:22:5
     #12 0x7f55067c3082 in __libc_start_main /build/glibc-SzIz7B/glibc-2.31/csu/../csu/libc-start.c:308:16
-    #13 0x22605d in _start (/home/dave/mini/mini+0x22605d)
+    #13 0x22605d in _start (/home/user/mini/mini+0x22605d)
 
 0x514000150dcc is located 0 bytes after 396-byte region [0x514000150c40,0x514000150dcc)
 allocated by thread T0 here:
-    #0 0x7f5509553dcf in malloc /work/dave/git/compute/external/llvm-project/compiler-rt/lib/asan/asan_malloc_linux.cpp:69:3
-    #1 0x226817 in main /home/dave/mini/mini.cpp:21:21
+    #0 0x7f5509553dcf in malloc /work/user/git/compute/external/llvm-project/compiler-rt/lib/asan/asan_malloc_linux.cpp:69:3
+    #1 0x226817 in main /home/user/mini/mini.cpp:21:21
     #2 0x7f55067c3082 in __libc_start_main /build/glibc-SzIz7B/glibc-2.31/csu/../csu/libc-start.c:308:16
 
-SUMMARY: AddressSanitizer: heap-buffer-overflow /work/dave/git/compute/external/llvm-project/compiler-rt/lib/asan/asan_interceptors_memintrinsics.cpp:61:3 in __asan_memcpy
+SUMMARY: AddressSanitizer: heap-buffer-overflow /work/user/git/compute/external/llvm-project/compiler-rt/lib/asan/asan_interceptors_memintrinsics.cpp:61:3 in __asan_memcpy
 Shadow bytes around the buggy address:
   0x514000150b00: ...
 
